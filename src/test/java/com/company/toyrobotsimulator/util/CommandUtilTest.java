@@ -59,4 +59,33 @@ public class CommandUtilTest {
         String input = "MOVEE";
         CommandUtil.processInputString(input);
     }
+    @Test
+    public void testInvalidDirectionInCommandThrowsInvalidCommandException(){
+        expectedEx.expect(InvalidCommandException.class);
+        expectedEx.expectMessage("Invalid facing [NOrtr] in PLACE command");
+        String input = "PLACE 1,0,NOrtr";
+        CommandUtil.processInputString(input);
+    }
+
+    @Test
+    public void testInvalidPositionCoordinatesInCommandThrowsInvalidCommandException(){
+        expectedEx.expect(InvalidCommandException.class);
+        expectedEx.expectMessage("Invalid position coordinates [For input string: \"X\"] in PLACE command");
+        String input = "PLACE 1,X,NORTH";
+        CommandUtil.processInputString(input);
+    }
+    @Test
+    public void testMissingPlaceCommandThrowsInvalidCommandException(){
+        expectedEx.expect(InvalidCommandException.class);
+        expectedEx.expectMessage("Command [1,1,NORTH] does not Exist");
+        String input = "1,1,NORTH";
+        CommandUtil.processInputString(input);
+    }
+    @Test
+    public void testMissingDirectionInPlaceCommandThrowsInvalidCommandException(){
+        expectedEx.expect(InvalidCommandException.class);
+        expectedEx.expectMessage("Wrong no of arguments for PLACE, found 1,1");
+        String input = "REPORT PLACE 1,1 MOVE";
+        CommandUtil.processInputString(input);
+    }
 }

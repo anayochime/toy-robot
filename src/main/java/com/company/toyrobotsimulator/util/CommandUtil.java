@@ -45,14 +45,24 @@ public class CommandUtil {
             }
 
             //Check if the new command is a PLACE so as to retrieve its args for processing else process as normal command
-            String[] commandArgs;
-            if (commandAction == CommandAction.PLACE) {
-                commandArgs = inputCommands[nextInputCommandIndex + 1].split(",");
-                commands.add(createCommand(commandAction, commandArgs));
-                nextInputCommandIndex = nextInputCommandIndex + 2;
-            } else {
-                commands.add(createCommand(commandAction, null));
-                nextInputCommandIndex++;
+            String[] commandArgs = null;
+            try {
+                if (commandAction == CommandAction.PLACE) {
+                    commandArgs = inputCommands[nextInputCommandIndex + 1].split(",");
+                    if (commandArgs.length != 3) {
+                        throw new InvalidCommandException(String.format("Wrong no of arguments for PLACE, found %s", inputCommands[nextInputCommandIndex + 1]));
+                    }
+                    commands.add(createCommand(commandAction, commandArgs));
+                    nextInputCommandIndex = nextInputCommandIndex + 2;
+                } else {
+                    commands.add(createCommand(commandAction, null));
+                    nextInputCommandIndex++;
+                }
+            }catch(NumberFormatException ex){
+                throw new InvalidCommandException(String.format("Invalid position coordinates [%s] in PLACE command", ex.getMessage()));
+            } catch (IllegalArgumentException ex) {
+                assert commandArgs != null;
+                throw new InvalidCommandException(String.format("Invalid facing [%s] in PLACE command", commandArgs[2]));
             }
         }
 

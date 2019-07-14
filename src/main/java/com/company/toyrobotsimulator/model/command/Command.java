@@ -12,6 +12,7 @@ public interface Command {
     /**
      * Action performed on the given grid item
      * @param gridItem
+     * @return output of the action or null if the command does not produce an output
      */
     String action(GridItem gridItem);
 }

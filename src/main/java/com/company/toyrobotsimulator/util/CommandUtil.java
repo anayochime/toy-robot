@@ -5,7 +5,7 @@ import com.company.toyrobotsimulator.model.Direction;
 import com.company.toyrobotsimulator.model.Position;
 import com.company.toyrobotsimulator.model.command.Command;
 import com.company.toyrobotsimulator.model.command.CommandAction;
-import com.company.toyrobotsimulator.model.command.impl.PlaceCommand;
+import com.company.toyrobotsimulator.model.command.impl.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +61,14 @@ public class CommandUtil {
                 int y = Integer.parseInt(commandArgs[1]);
                 Direction facing = Direction.valueOf(commandArgs[2]);
                 return new PlaceCommand(new Position(x, y, facing));
+            case MOVE:
+                return new MoveCommand(null);
+            case LEFT:
+                return new LeftCommand();
+            case RIGHT:
+                return new RightCommand();
+            case REPORT:
+                return new ReportCommand();
             default:
                 throw new InvalidCommandException(String.format("Command %s does not Exist", commandAction));
         }

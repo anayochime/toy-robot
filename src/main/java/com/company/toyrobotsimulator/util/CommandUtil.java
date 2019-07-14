@@ -9,6 +9,7 @@ import com.company.toyrobotsimulator.model.command.impl.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CommandUtil {
     /**
@@ -18,7 +19,9 @@ public class CommandUtil {
      * @return
      */
     public static List<Command> processInputString(String input) {
-
+        if(Objects.isNull(input) || input.isEmpty()){
+            throw new InvalidCommandException("Command cannot be empty");
+        }
         String[] inputCommands = input.split(" ");
 
         List<Command> commands = new ArrayList<>();
@@ -35,7 +38,11 @@ public class CommandUtil {
         } else {
             //Verify if the input is a valid command
             CommandAction commandAction;
-            commandAction = CommandAction.valueOf(inputCommands[nextInputCommandIndex]);
+            try {
+                commandAction = CommandAction.valueOf(inputCommands[nextInputCommandIndex]);
+            }catch(IllegalArgumentException ex){
+                throw new InvalidCommandException(String.format("Command [%s] does not Exist", inputCommands[nextInputCommandIndex]));
+            }
 
             //Check if the new command is a PLACE so as to retrieve its args for processing else process as normal command
             String[] commandArgs;

@@ -21,6 +21,8 @@ public class MoveCommand implements NavigableCommand {
 
     @Override
     public String action(GridItem gridItem) {
+        gridItem.setGridPosition(position);
+        gridItem.setOnGrid(true);
         return null;
     }
 
@@ -28,5 +30,4 @@ public class MoveCommand implements NavigableCommand {
     public Position getNewPosition() {
         return position;
     }
-
 }

@@ -7,6 +7,8 @@ import com.company.toyrobotsimulator.model.grid.Grid;
 import com.company.toyrobotsimulator.rule.Decision;
 import com.company.toyrobotsimulator.rule.Rule;
 import com.company.toyrobotsimulator.rule.RuleResult;
+import com.company.toyrobotsimulator.rule.impl.GridItemRule;
+import com.company.toyrobotsimulator.rule.impl.MoveRule;
 import com.company.toyrobotsimulator.rule.impl.PlaceRule;
 import com.company.toyrobotsimulator.util.CommandUtil;
 
@@ -26,6 +28,8 @@ public class Simulator {
         robot = new Robot();
         rules = new HashSet<>();
         rules.add(new PlaceRule(grid));
+        rules.add(new GridItemRule());
+        rules.add(new MoveRule(grid));
     }
 
     /**
@@ -36,6 +40,8 @@ public class Simulator {
     public List<String> processInput(String input) {
         List<Command> commands = CommandUtil.processInputString(input);
 
+        //Ignore all command before an initial PLACE command, then accumulate the result of the commands
+        //with output (REPORT)
         return commands.stream()
                 .filter(command -> command.getCommandAction() == CommandAction.PLACE || robot.isOnGrid())
                 .map(this::executeCommand)
@@ -44,6 +50,7 @@ public class Simulator {
                 .collect(Collectors.toList());
     }
 
+    //Run each command against the simulation rules returning their results
     private Optional<String> executeCommand(Command command) {
         for (Rule rule : rules) {
             RuleResult ruleResult = rule.execute(command, robot);

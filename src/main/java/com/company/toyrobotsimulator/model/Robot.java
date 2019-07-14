@@ -1,11 +1,11 @@
 package com.company.toyrobotsimulator.model;
 
-import com.company.toyrobotsimulator.model.grid.GridItem;
+import com.company.toyrobotsimulator.model.grid.MovableGridItem;
 
 import java.util.Objects;
 import java.util.Optional;
 
-public class Robot implements GridItem {
+public class Robot implements MovableGridItem {
 
     private boolean onGrid;
     private Position position;
@@ -19,6 +19,10 @@ public class Robot implements GridItem {
     }
 
     @Override
+    public Position getGridPosition() {
+        return position;
+    }
+    @Override
     public void setGridPosition(Position position) {
         this.position = position;
     }
@@ -31,5 +35,31 @@ public class Robot implements GridItem {
     @Override
     public void setOnGrid(boolean onGrid) {
         this.onGrid = onGrid;
+    }
+
+    @Override
+    public void turnRight(){
+        int directionOrdinal = position.getFacing().ordinal();
+
+        directionOrdinal++;
+
+        if(directionOrdinal == 4){
+            directionOrdinal = 0;
+        }
+
+        position.setFacing(Direction.values()[directionOrdinal]);
+    }
+
+    @Override
+    public void turnLeft() {
+        int directionOrdinal = position.getFacing().ordinal();
+
+        directionOrdinal--;
+
+        if(directionOrdinal == -1){
+            directionOrdinal = 3;
+        }
+
+        position.setFacing(Direction.values()[directionOrdinal]);
     }
 }

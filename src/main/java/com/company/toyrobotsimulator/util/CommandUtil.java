@@ -22,12 +22,17 @@ public class CommandUtil {
         if(Objects.isNull(input) || input.isEmpty()){
             throw new InvalidCommandException("Command cannot be empty");
         }
-        String[] inputCommands = input.split(" ");
+        String sanitizedInput = sanitizeInput(input);
+        String[] inputCommands = sanitizedInput.split(" ");
 
         List<Command> commands = new ArrayList<>();
         int startingCommandIndex = 0;
         processInputCommands(inputCommands, startingCommandIndex, commands);
         return commands;
+    }
+
+    private static String sanitizeInput(String input) {
+        return input.replaceAll("\\s*,\\s*", ",").replaceAll("PLACE\\s*", "PLACE ");
     }
 
     private static void processInputCommands(String[] inputCommands, int nextInputCommandIndex,
@@ -39,7 +44,7 @@ public class CommandUtil {
             //Verify if the input is a valid command
             CommandAction commandAction;
             try {
-                commandAction = CommandAction.valueOf(inputCommands[nextInputCommandIndex]);
+                commandAction = CommandAction.valueOf(inputCommands[nextInputCommandIndex].toUpperCase());
             }catch(IllegalArgumentException ex){
                 throw new InvalidCommandException(String.format("Command [%s] does not Exist", inputCommands[nextInputCommandIndex]));
             }

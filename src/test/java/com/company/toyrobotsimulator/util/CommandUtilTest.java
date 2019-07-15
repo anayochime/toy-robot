@@ -37,6 +37,18 @@ public class CommandUtilTest {
     }
 
     @Test
+    public void testLowercaseProcessingSuccess(){
+        String input = "move place 1,0,NORTH  left right report";
+
+        List<Command> commandList = CommandUtil.processInputString(input);
+        assertThat(commandList.get(0).getCommandAction()).isEqualTo(CommandAction.MOVE);
+        assertThat(commandList.get(1).getCommandAction()).isEqualTo(CommandAction.PLACE);
+        assertThat(commandList.get(2).getCommandAction()).isEqualTo(CommandAction.LEFT);
+        assertThat(commandList.get(3).getCommandAction()).isEqualTo(CommandAction.RIGHT);
+        assertThat(commandList.get(4).getCommandAction()).isEqualTo(CommandAction.REPORT);
+    }
+
+    @Test
     public void testNullCommandThrowsInvalidCommandException(){
         expectedEx.expect(InvalidCommandException.class);
         expectedEx.expectMessage("Command cannot be empty");
@@ -80,6 +92,18 @@ public class CommandUtilTest {
         expectedEx.expectMessage("Command [1,1,NORTH] does not Exist");
         String input = "1,1,NORTH";
         CommandUtil.processInputString(input);
+    }
+    @Test
+    public void testSpacesInPLACEArgumentsSucceeds(){
+        String input = "PLACE 1, 1, NORTH     REPORT";
+        List<Command> commandList = CommandUtil.processInputString(input);
+        assertThat(commandList.get(0).getCommandAction()).isEqualTo(CommandAction.PLACE);
+        assertThat(commandList.get(1).getCommandAction()).isEqualTo(CommandAction.REPORT);
+
+        input = "    PLACE   1  , 1  , NORTH     REPORT";
+        commandList = CommandUtil.processInputString(input);
+        assertThat(commandList.get(0).getCommandAction()).isEqualTo(CommandAction.PLACE);
+        assertThat(commandList.get(1).getCommandAction()).isEqualTo(CommandAction.REPORT);
     }
     @Test
     public void testMissingDirectionInPlaceCommandThrowsInvalidCommandException(){

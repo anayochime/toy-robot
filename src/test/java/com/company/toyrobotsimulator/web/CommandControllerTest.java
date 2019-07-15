@@ -1,6 +1,5 @@
 package com.company.toyrobotsimulator.web;
 
-import com.company.toyrobotsimulator.CommandController;
 import com.company.toyrobotsimulator.model.web.InputCommand;
 import com.company.toyrobotsimulator.service.CommandService;
 import com.fasterxml.jackson.databind.ObjectMapper;

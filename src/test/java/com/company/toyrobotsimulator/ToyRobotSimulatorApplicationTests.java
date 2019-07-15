@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ToyRobotSimulatorApplicationTests {
 	@Autowired
 	private TestRestTemplate testRestTemplate;
@@ -40,7 +40,7 @@ public class ToyRobotSimulatorApplicationTests {
 				String.class);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(JsonPath.parse(response.getBody()).read("$.report").toString()).isEqualTo("0,1,EAST");
+		assertThat(JsonPath.parse(response.getBody()).read("$.report").toString()).isEqualTo("Output:0,1,EAST");
 	}
 
 	private HttpEntity<String> buildHttpEntity(Object requestBodyObj, Map<String, String> headersValues )

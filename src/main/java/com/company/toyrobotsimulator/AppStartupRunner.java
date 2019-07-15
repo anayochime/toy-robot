@@ -5,14 +5,12 @@ import com.company.toyrobotsimulator.simulator.Simulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Scanner;
 
 @Component
-@Profile("!test")
 public class AppStartupRunner implements ApplicationRunner {
 
     @Autowired

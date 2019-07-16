@@ -36,6 +36,13 @@ describe('Validator', () => {
         expect(spy_errorUpdater).toHaveBeenCalledWith("LEFTTT is Invalid, supported commands are: PLACE MOVE LEFT RIGHT REPORT");
     });
 
+    it('should fail validation for invalid lowercase command', () => {
+        command = "REPORT rep LEFT";
+        expect(inputCommandsIsValid(command, spy_errorUpdater)).toEqual(false);
+        expect(spy_errorUpdater).toHaveBeenCalledTimes(1);
+        expect(spy_errorUpdater).toHaveBeenCalledWith("rep is Invalid, supported commands are: PLACE MOVE LEFT RIGHT REPORT");
+    });
+
     it('should fail validation for non word character', () => {
         command = ",,,,,,";
         expect(inputCommandsIsValid(command, spy_errorUpdater)).toEqual(false);
@@ -47,7 +54,7 @@ describe('Validator', () => {
         command = "ABC EFG UVXSYZ";
         expect(inputCommandsIsValid(command, spy_errorUpdater)).toEqual(false);
         expect(spy_errorUpdater).toHaveBeenCalledTimes(1);
-        expect(spy_errorUpdater).toHaveBeenCalledWith("UVXSYZ is Invalid, supported commands are: PLACE MOVE LEFT RIGHT REPORT");
+        expect(spy_errorUpdater).toHaveBeenCalledWith("ABC is Invalid, supported commands are: PLACE MOVE LEFT RIGHT REPORT");
     });
 
     it('should fail validation for empty string', () => {

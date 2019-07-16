@@ -8,17 +8,19 @@ export const inputCommandsIsValid = (issuedCommand, errorUpdater) => {
         return false;
     }
     issuedCommand = " ".concat(issuedCommand);
-    const commandPattern = /(?<![,]\s*)(\s+[A-z]{4,})/g;
+    const commandPattern = /(,\s*)?(\s+[A-z]+)/g;
     let match = commandPattern.exec(issuedCommand);
     let matchCount = 0;
     while (match != null) {
         matchCount++;
-        if (match[0].trim().toUpperCase() === "PLACE") {
-            if (!validatePLACEArgs(commandPattern.lastIndex, issuedCommand, errorUpdater)) {
+        if(!match[1]) {
+            if (match[0].trim().toUpperCase() === "PLACE") {
+                if (!validatePLACEArgs(commandPattern.lastIndex, issuedCommand, errorUpdater)) {
+                    return false
+                }
+            } else if (!validCommand(match[0], errorUpdater)) {
                 return false
             }
-        } else if (!validCommand(match[0], errorUpdater)) {
-            return false
         }
 
         match = commandPattern.exec(issuedCommand);

@@ -24,6 +24,13 @@ public class ApiError {
         this.debugMessage = ex.getLocalizedMessage();
     }
 
+    public ApiError(HttpStatus status, String message,String debugMessage) {
+        this();
+        this.status = status;
+        this.message = message;
+        this.debugMessage = debugMessage;
+    }
+
     public HttpStatus getStatus() {
         return status;
     }

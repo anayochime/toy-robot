@@ -1,6 +1,6 @@
 package com.company.toyrobotsimulator.util;
 
-import com.company.exception.InvalidCommandException;
+import com.company.toyrobotsimulator.exception.InvalidCommandException;
 import com.company.toyrobotsimulator.model.Direction;
 import com.company.toyrobotsimulator.model.Position;
 import com.company.toyrobotsimulator.model.command.Command;

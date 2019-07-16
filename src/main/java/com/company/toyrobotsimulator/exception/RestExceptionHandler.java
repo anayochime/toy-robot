@@ -19,10 +19,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         String error = "Malformed JSON request";
-        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, "Please check json request"));
     }
 
-    @ExceptionHandler(InvalidCommandException.class)
+    @ExceptionHandler(com.company.toyrobotsimulator.exception.InvalidCommandException.class)
     protected ResponseEntity<Object> handleInvalidCommandException(InvalidCommandException ex,
                                                                    WebRequest request) {
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST,"Command cannot be executed", ex));

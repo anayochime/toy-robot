@@ -1,6 +1,6 @@
 package com.company.toyrobotsimulator;
 
-import com.company.exception.InvalidCommandException;
+import com.company.toyrobotsimulator.exception.InvalidCommandException;
 import com.company.toyrobotsimulator.simulator.Simulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;

@@ -35,7 +35,7 @@ export const inputCommandsIsValid = (issuedCommand, errorUpdater) => {
 
 const validCommand = (matchedCommand, errorUpdater) => {
     const validCommands = ["PLACE", "MOVE", "LEFT", "RIGHT", "REPORT"];
-    if (!validCommands.includes(matchedCommand.trim())) {
+    if (!validCommands.includes(matchedCommand.trim().toUpperCase())) {
         errorUpdater(`${matchedCommand.trim()} is Invalid, supported commands are: ${validCommands.join(" ")}`);
         return false
     }

@@ -33,7 +33,7 @@ const grid = (props) => {
     }
 
     return(
-        <div>
+        <div style={{width: '40%', margin: 'auto'}}>
            {unitRows}
         </div>
     );

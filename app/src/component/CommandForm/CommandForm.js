@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 const commandForm = (props) => {
 
     return (
-        <div>
-            {props.errorMessage ? <p className={"text-danger"}>{props.errorMessage}</p> : null}
+        <div style={{width: '40%', margin: 'auto', padding: '16px'}}>
+            {props.errorMessage ? <p className={"text-danger"}>{props.errorMessage}</p> : null};
             <InputGroup style={{marginBottom: '15px'}}>
                 <Input type="text" placeholder="Enter Command" onChange={props.inputChangeHandler}/>
                 <InputGroupAddon addonType="append">

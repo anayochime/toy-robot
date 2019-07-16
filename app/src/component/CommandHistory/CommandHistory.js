@@ -22,8 +22,8 @@ const commandHistory = (props) => {
     }
 
     return (
-        <div style={{marginTop: '10px'}}>
-            <div className="row p-3 mb-2 align-items-end bg-secondary text-white">
+        <div style={{width: '50%',marginTop: '10px', marginLeft: 'auto', marginRight: 'auto', padding: '106px'}}>
+            <div className="row p-1 mb-2 align-items-end bg-secondary text-white">
                 <div className="col-10 ">
                     <p className="display-4">Command History</p>
                 </div>

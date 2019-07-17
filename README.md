@@ -70,6 +70,22 @@ With the application running, open http://localhost:9000 on the browser and issu
 
 You can use a http client to send requests to the application.
 
+```bash
+POST /toy-robot/rest/command
+{
+ input: "Command"
+}
+```
+
+***Example Request***
+```bash
+curl --location --request POST "http://localhost:9000/toy-robot/rest/command" \
+  --header "Content-Type: application/json" \
+  --data "{
+	\"input\": \"report\"
+}"
+```
+
 **Command line**
 
 Enter the commands directly on the console. Outputs will be printed on the console as well
